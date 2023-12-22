@@ -26,3 +26,5 @@ services:
       - POSTGRES_DB=statsDB
       - POSTGRES_USER=su
       - POSTGRES_PASSWORD=123
+    ports:
+      - "5432:5432"
