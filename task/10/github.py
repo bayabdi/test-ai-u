@@ -8,7 +8,7 @@ import requests
 
 
 def get_user_info(username):
-    headers = {'Authorization': 'Bearer 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'}
+    headers = {'Authorization': 'Bearer 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'}
 
     
     url = f'https://api.github.com/users/{username}'
@@ -24,6 +24,8 @@ def get_user_info(username):
         print(f"Followers: {user_data['followers']}")
         print(f"Following: {user_data['following']}")
         print(f"Public Repositories: {user_data['public_repos']}")
+        
+        return (user_data['login'], user_data['public_repos'])
     else:
         print(f"Error: Unable to fetch user data (Status Code: {response.status_code})")
 
