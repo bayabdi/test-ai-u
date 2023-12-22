@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  # Django web application
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DEBUG=True
+      - DJANGO_DB_HOST=db
+      - DJANGO_DB_PORT=5432
+      - DJANGO_DB_NAME=statsDB
+      - DJANGO_DB_USER=su
+      - DJANGO_DB_PASSWORD=123
+
+  # PostgreSQL database
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=statsDB
+      - POSTGRES_USER=su
+      - POSTGRES_PASSWORD=123

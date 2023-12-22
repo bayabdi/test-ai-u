@@ -20,12 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-1*7)0fiigh)eejc-3dfvzezm4hy-2f)x)xrpxxe(%n4h2sue%+'
+SECRET_KEY = 'django-insecure-3)%y@-_*0=8w^z_##hwb7%-9+gq$lre=i5=(g%&vg*v^pt5iy0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -79,7 +79,7 @@ DATABASES = {
         'NAME': 'statsDB',
         'USER': 'su',
         'PASSWORD': '123',
-        'HOST': 'db',  # This should match the service name in the Docker Compose file
+        'HOST': 'db',
         'PORT': '5432',
     }
 }
