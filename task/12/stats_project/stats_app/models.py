@@ -1,3 +1,6 @@
 from django.db import models
 
-# Create your models here.
+
+class Statistic(models.Model):
+    timestamp = models.DateTimeField()
+    value = models.FloatField()

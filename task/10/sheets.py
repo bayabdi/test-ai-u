@@ -23,6 +23,7 @@ def get_crendentials():
     credentials = service_account.Credentials.from_service_account_file('credentials.json', scopes=SCOPES)
     return credentials
 
+
 def get_all():
     credentials = get_crendentials()
     service = build("sheets", "v4", credentials=credentials)

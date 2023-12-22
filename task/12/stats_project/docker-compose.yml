@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: statsDB
+      POSTGRES_USER: su
+      POSTGRES_PASSWORD: 123
+    ports:
+      - "5432:5432"
+    networks:
+      - mynetwork
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    networks:
+      - mynetwork
+
+  worker:
+    build: .
+    command: celery -A stats_project worker -l info
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    networks:
+      - mynetwork
+
+  redis:
+    image: "redis:alpine"
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
