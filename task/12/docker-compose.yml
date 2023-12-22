@@ -18,6 +18,8 @@ services:
       - DJANGO_DB_NAME=statsDB
       - DJANGO_DB_USER=su
       - DJANGO_DB_PASSWORD=123
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
 
   # PostgreSQL database
   db:
@@ -28,3 +30,30 @@ services:
       - POSTGRES_PASSWORD=123
     ports:
       - "5432:5432"
+
+
+  # Redis for Celery
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+
+  # Celery worker
+  worker:
+    build: .
+    command: celery -A stats worker -l info
+    volumes:
+      - .:/app
+    depends_on:
+      - web
+      - redis
+
+  # Celery beat for periodic tasks
+  beat:
+    build: .
+    command: celery -A stats beat -l info
+    volumes:
+      - .:/app
+    depends_on:
+      - web
+      - redis
